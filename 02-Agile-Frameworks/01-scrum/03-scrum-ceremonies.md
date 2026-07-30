@@ -46,7 +46,8 @@ Sprint Planning initiates the Sprint by laying out the work to be performed for 
 - **The "What":** The Product Owner discusses the objective and the highest priority Product Backlog items. The team selects items they can complete.
 - **The "How":** The Developers plan the work necessary to create an Increment that meets the Definition of Done.
 
-> [!WARNING] **Anti-pattern:** The PO dictating how much work the team must take, or the team committing to work they don't understand.
+> [!WARNING]
+> **Anti-pattern:** The PO dictating how much work the team must take, or the team committing to work they don't understand.
 
 ---
 
@@ -58,7 +59,8 @@ The purpose of the Daily Scrum is to inspect progress toward the Sprint Goal and
 - **Purpose:** To improve communications, identify impediments, promote quick decision-making, and consequently eliminate the need for other meetings.
 - **Format:** The Developers can select whatever structure and techniques they want, as long as their Daily Scrum focuses on progress toward the Sprint Goal. (Historically, the "3 Questions" were popular: What did I do yesterday? What will I do today? What impediments are in my way?)
 
-> [!WARNING] **Anti-pattern:** Treating the Daily Scrum as a status report to the Scrum Master or PO instead of a synchronization meeting for the Developers. Problem-solving during the Daily Scrum (discussions should be taken offline).
+> [!WARNING]
+> **Anti-pattern:** Treating the Daily Scrum as a status report to the Scrum Master or PO instead of a synchronization meeting for the Developers. Problem-solving during the Daily Scrum (discussions should be taken offline).
 
 ---
 
@@ -70,7 +72,8 @@ The purpose of the Sprint Review is to inspect the outcome of the Sprint and det
 - **Purpose:** To demonstrate the working increment, gather feedback, and collaboratively update the Product Backlog based on new insights.
 - **Activities:** The PO explains what has been "Done". The Developers demonstrate the work. Stakeholders provide feedback.
 
-> [!WARNING] **Anti-pattern:** A PowerPoint presentation instead of a working software demo. Stakeholders not attending.
+> [!WARNING]
+> **Anti-pattern:** A PowerPoint presentation instead of a working software demo. Stakeholders not attending.
 
 ---
 

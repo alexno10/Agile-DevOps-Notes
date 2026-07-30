@@ -24,20 +24,20 @@ You maintain two identical production environments: "Blue" (currently live) and 
 ### Blue/Green Workflow
 ```mermaid
 graph TD
-    LB[Load Balancer / Ingress]
-    
-    subgraph Environment Blue
-        B_App[App v1.0]
+    LB["Load Balancer / Ingress"]
+
+    subgraph Blue ["🔵 Environment Blue - LIVE"]
+        B_App["App v1.0"]
     end
-    
-    subgraph Environment Green
-        G_App[App v2.0]
+
+    subgraph Green ["🟢 Environment Green - STAGING"]
+        G_App["App v2.0"]
+        NOTE["Deploy and Test here first.\nWhen ready, switch the Load Balancer."]
     end
-    
-    LB ==>|100% Traffic| B_App
-    LB -.->|0% Traffic| G_App
-    
-    Note right of G_App: Deploy & Test here first.<br/>When ready, switch LB.
+
+    LB ==>|"100% Traffic"| B_App
+    LB -.->|"0% Traffic"| G_App
+    G_App --- NOTE
 ```
 
 ---

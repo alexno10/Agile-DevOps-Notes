@@ -44,7 +44,7 @@ graph LR
         D -->|CAB Approval| E[Deployment]
     end
 
-    subgraph Time Metrics (Current State)
+    subgraph METRICS ["Time Metrics - Current State"]
         A_T[PT: 2 hrs<br/>Wait: 5 days]
         B_T[PT: 3 days<br/>Wait: 1 day]
         C_T[PT: 1 hr<br/>Wait: 2 days]

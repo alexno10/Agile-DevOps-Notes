@@ -11,9 +11,9 @@ However, Agile had a blind spot: **It stopped at "Code Complete."**
 
 ```mermaid
 graph LR
-    A["\ud83c\udfc1 Waterfall\nMonths/Years\nBig Bang Deployments\n\ud83d\udd34 High Risk"]
-    --> B["\u26a1 Agile\nWeeks / Sprints\nDev done, waiting for Ops\n\ud83d\udfe1 Moderate Risk"]
-    --> C["\ud83d\udd01 DevOps\nDays / Hours\nContinuous Flow to Production\n\ud83d\udfe2 Low Risk"]
+    A["Waterfall\nMonths/Years\nBig Bang Deployments\nHigh Risk"]
+    --> B["Agile\nWeeks / Sprints\nDev done, waiting for Ops\nModerate Risk"]
+    --> C["DevOps\nDays / Hours\nContinuous Flow to Production\nLow Risk"]
 ```
 
 In the early days of Agile, a Dev team might finish a sprint, build an incredible feature, and then... wait six weeks for the Operations team's next "release window." The agility gained in development was entirely lost in the deployment bottleneck.

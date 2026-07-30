@@ -6,7 +6,7 @@ Agile is not a methodology, a framework, or a set of rules. **Agile is a mindset
 
 Before Agile became the industry standard, software development was dominated by rigid, sequential models (often referred to as "Waterfall"). In the 1990s, the software industry faced what many called an "application delivery lag" or the **software crisis**. 
 
-> [!WARNING]
+> [!NOTE]
 > By the time a software project was planned, designed, coded, and tested—often taking up to 3 years—the business requirements had changed so drastically that the delivered software was obsolete upon arrival.
 
 Teams were bogged down in extensive documentation and rigid contracts, stifling innovation and delaying time-to-market. The need for a lightweight, adaptable approach became undeniably urgent.

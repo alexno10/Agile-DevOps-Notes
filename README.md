@@ -49,10 +49,10 @@ graph TD
 ### Part 2 — Agile Frameworks
 | # | Topic | Description |
 |---|-------|-------------|
-| 2.1 | [Scrum Overview](./02-Agile-Frameworks/01-scrum/scrum-overview.md) | Full Scrum guide |
-| 2.2 | [Scrum Roles](./02-Agile-Frameworks/01-scrum/scrum-roles.md) | PO, Scrum Master, Dev Team |
-| 2.3 | [Scrum Ceremonies](./02-Agile-Frameworks/01-scrum/scrum-ceremonies.md) | Sprint Planning, Daily, Review, Retro |
-| 2.4 | [Scrum Artifacts](./02-Agile-Frameworks/01-scrum/scrum-artifacts.md) | Backlog, Increment, Definition of Done |
+| 2.1 | [Scrum Overview](./02-Agile-Frameworks/01-scrum/01-scrum-overview.md) | Full Scrum guide |
+| 2.2 | [Scrum Roles](./02-Agile-Frameworks/01-scrum/02-scrum-roles.md) | PO, Scrum Master, Dev Team |
+| 2.3 | [Scrum Ceremonies](./02-Agile-Frameworks/01-scrum/03-scrum-ceremonies.md) | Sprint Planning, Daily, Review, Retro |
+| 2.4 | [Scrum Artifacts](./02-Agile-Frameworks/01-scrum/04-scrum-artifacts.md) | Backlog, Increment, Definition of Done |
 | 2.5 | [Kanban Overview](./02-Agile-Frameworks/02-kanban/kanban-overview.md) | Flow-based, WIP limits, pull system |
 | 2.6 | [Kanban vs Scrum](./02-Agile-Frameworks/02-kanban/kanban-vs-scrum.md) | When to use which |
 | 2.7 | [SAFe Overview](./02-Agile-Frameworks/03-SAFe-overview.md) | Scaling Agile at enterprise level |
