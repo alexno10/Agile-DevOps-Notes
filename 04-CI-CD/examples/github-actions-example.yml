@@ -1,0 +1,159 @@
+name: Production CI/CD Pipeline
+
+# Trigger the workflow on push to main or any pull request targeting main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Define environment variables available to all jobs
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ---------------------------------------------------------
+  # 1. LINTING JOB
+  # ---------------------------------------------------------
+  lint:
+    name: Lint Codebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linter
+        run: npm run lint
+
+  # ---------------------------------------------------------
+  # 2. UNIT TESTING JOB (Using Matrix Strategy)
+  # ---------------------------------------------------------
+  test:
+    name: Unit Tests
+    needs: lint # Waits for lint job to succeed
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Test across multiple Node versions
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests with Coverage
+        run: npm run test:coverage
+
+      # Example: Upload coverage report as an artifact
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{ matrix.node-version }}
+          path: coverage/
+
+  # ---------------------------------------------------------
+  # 3. BUILD & PUSH DOCKER IMAGE JOB
+  # ---------------------------------------------------------
+  docker-build:
+    name: Build & Push Image
+    needs: test # Waits for tests to pass
+    runs-on: ubuntu-latest
+    # Only run this job if we are pushing to main (not for PRs)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,format=long
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # ---------------------------------------------------------
+  # 4. DEPLOY TO STAGING JOB
+  # ---------------------------------------------------------
+  deploy-staging:
+    name: Deploy to Staging
+    needs: docker-build
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.example.com
+      
+    steps:
+      - name: Checkout Configuration Repo
+        uses: actions/checkout@v4
+      
+      # Example deployment step (e.g., using Helm or kubectl)
+      - name: Deploy to Kubernetes Staging
+        run: |
+          echo "Deploying image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} to staging..."
+          # kubectl set image deployment/myapp myapp=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --namespace staging
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
+  # ---------------------------------------------------------
+  # 5. DEPLOY TO PRODUCTION JOB
+  # ---------------------------------------------------------
+  deploy-production:
+    name: Deploy to Production
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://production.example.com
+      
+    steps:
+      - name: Checkout Configuration Repo
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Kubernetes Production
+        run: |
+          echo "Deploying image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} to production..."
+          # kubectl set image deployment/myapp myapp=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --namespace prod
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
